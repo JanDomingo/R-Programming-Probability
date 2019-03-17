@@ -1,0 +1,19 @@
+sample (1,1000,1)
+sample (1:1000,1)
+simNums = sample (1:1000,1)
+(simNums %% 4 == 0) || (simNums %% 7 == 0)
+divisible = (simNums %% 4 == 0) || (simNums %% 7 == 0)
+divisible
+divisible
+simNums = sample (1:1000,1)
+divisible
+simNums = sample (1:1000,1)
+simNums
+simNums
+divisible
+divisible = (simNums %% 4 == 0) || (simNums %% 7 == 0)
+divisible
+sample (1:1000,10)
+sample (1:1000,100)
+divisible = (simNums %% 4 == 0) || (simNums %% 7 == 0)
+divisible
