@@ -15,5 +15,44 @@ probCalc = function(n) {
   return (success/n)
 }
 
-prob1000 = probCalc(1000) #Calculates the probablity of "double six" occuring in 24 die pair rolls, 1000 times
+prob1000 = dieSim(1000) #Calculates the probablity of "double six" occuring in 24 die pair rolls, 1000 times
     
+
+#=========================================================================
+
+#2
+#a
+
+bdayProb = function(n) {
+  success = 0
+  for (i in 1:n) {
+    bdays = sample(1:365, 23, replace = TRUE)
+    sort(bdays)
+    bdayFreq = table(bdays)
+    if (max(bdayFreq) >=2) { #Returns maximum frequency count
+      success = success + 1
+    }
+  }
+  return (success/n)
+}
+
+prob1000 = bdayProb(1000)
+prob10000 = bdayProb(10000)
+prob50000 = bdayProb(50000)
+
+
+#=========================================================================
+
+#3
+#a
+
+w = c(-10, -10, -10, 0, 0, 14)
+winnings = sample (w, 1000, replace = TRUE)  #Result of 1000 trials saved into winnings
+table (winnings) #Displays total count for -10, 0, and 14
+table (winnings)/1000 #Displays the probability distrubtion function
+winProp = table(winnings)/1000 
+cumsum(winProp) #Displays the cumulative distrubtion function
+mean(winnings)
+sd(winnings)
+var(winnings)
+
