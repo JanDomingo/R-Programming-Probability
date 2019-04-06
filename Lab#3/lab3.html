@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+.inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.str {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.std {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+  <script src="https://yihui.name/media/js/center-images.js"></script>
+  <title></title>
+</head>
+<body>
+
+  <p>This report is automatically generated with the R
+    package <a href="https://yihui.name/knitr/"><strong>knitr</strong></a>
+    (version <code class="knitr inline">1.22</code>)
+    .</p>
+
+<div class="chunk" id="auto-report"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl com">#R Code for Lab 3</span>
+
+<span class="hl com">#1</span>
+<span class="hl com">#(a)</span>
+
+<span class="hl com">#This function calculates the probabilty of a &quot;double six&quot; showing up in 24 pair rolls for n amount of times</span>
+<span class="hl std">dieSim</span> <span class="hl kwb">=</span> <span class="hl kwa">function</span><span class="hl std">(</span><span class="hl kwc">n</span><span class="hl std">) {</span>
+  <span class="hl std">success</span> <span class="hl kwb">=</span> <span class="hl num">0</span> <span class="hl com">#&quot;Double six&quot; roll counter</span>
+  <span class="hl kwa">for</span> <span class="hl std">(i</span> <span class="hl kwa">in</span> <span class="hl num">1</span><span class="hl opt">:</span><span class="hl std">n) {</span>
+    <span class="hl std">rolls</span> <span class="hl kwb">=</span> <span class="hl kwd">replicate</span><span class="hl std">(</span><span class="hl num">24</span><span class="hl std">,</span> <span class="hl kwd">sum</span><span class="hl std">(</span><span class="hl kwd">sample</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl opt">:</span><span class="hl num">6</span><span class="hl std">,</span><span class="hl num">2</span><span class="hl std">,</span><span class="hl kwc">replace</span><span class="hl std">=</span><span class="hl num">TRUE</span><span class="hl std">)))</span>
+    <span class="hl kwa">if</span> <span class="hl std">(</span><span class="hl kwd">sum</span><span class="hl std">(rolls</span> <span class="hl opt">==</span> <span class="hl num">12</span><span class="hl std">)</span> <span class="hl opt">&gt;</span> <span class="hl num">0</span><span class="hl std">) {</span>
+      <span class="hl std">success</span> <span class="hl kwb">=</span> <span class="hl std">success</span> <span class="hl opt">+</span> <span class="hl num">1</span> <span class="hl com">#increment counter if at least one double six appears)</span>
+    <span class="hl std">}</span>
+  <span class="hl std">}</span>
+  <span class="hl kwd">return</span> <span class="hl std">(success</span><span class="hl opt">/</span><span class="hl std">n)</span>
+<span class="hl std">}</span>
+
+<span class="hl std">prob1000</span> <span class="hl kwb">=</span> <span class="hl kwd">dieSim</span><span class="hl std">(</span><span class="hl num">1000</span><span class="hl std">)</span> <span class="hl com">#Calculates the probablity of &quot;double six&quot; occuring in 24 die pair rolls, 1000 times</span>
+
+
+<span class="hl com">#=========================================================================</span>
+
+<span class="hl com">#2</span>
+<span class="hl com">#a</span>
+
+<span class="hl std">bdayProb</span> <span class="hl kwb">=</span> <span class="hl kwa">function</span><span class="hl std">(</span><span class="hl kwc">n</span><span class="hl std">) {</span>
+  <span class="hl std">success</span> <span class="hl kwb">=</span> <span class="hl num">0</span>
+  <span class="hl kwa">for</span> <span class="hl std">(i</span> <span class="hl kwa">in</span> <span class="hl num">1</span><span class="hl opt">:</span><span class="hl std">n) {</span>
+    <span class="hl std">bdays</span> <span class="hl kwb">=</span> <span class="hl kwd">sample</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl opt">:</span><span class="hl num">365</span><span class="hl std">,</span> <span class="hl num">23</span><span class="hl std">,</span> <span class="hl kwc">replace</span> <span class="hl std">=</span> <span class="hl num">TRUE</span><span class="hl std">)</span>
+    <span class="hl kwd">sort</span><span class="hl std">(bdays)</span>
+    <span class="hl std">bdayFreq</span> <span class="hl kwb">=</span> <span class="hl kwd">table</span><span class="hl std">(bdays)</span>
+    <span class="hl kwa">if</span> <span class="hl std">(</span><span class="hl kwd">max</span><span class="hl std">(bdayFreq)</span> <span class="hl opt">&gt;=</span><span class="hl num">2</span><span class="hl std">) {</span> <span class="hl com">#Returns maximum frequency count</span>
+      <span class="hl std">success</span> <span class="hl kwb">=</span> <span class="hl std">success</span> <span class="hl opt">+</span> <span class="hl num">1</span>
+    <span class="hl std">}</span>
+  <span class="hl std">}</span>
+  <span class="hl kwd">return</span> <span class="hl std">(success</span><span class="hl opt">/</span><span class="hl std">n)</span>
+<span class="hl std">}</span>
+
+<span class="hl std">prob1000</span> <span class="hl kwb">=</span> <span class="hl kwd">bdayProb</span><span class="hl std">(</span><span class="hl num">1000</span><span class="hl std">)</span>
+<span class="hl std">prob10000</span> <span class="hl kwb">=</span> <span class="hl kwd">bdayProb</span><span class="hl std">(</span><span class="hl num">10000</span><span class="hl std">)</span>
+<span class="hl std">prob50000</span> <span class="hl kwb">=</span> <span class="hl kwd">bdayProb</span><span class="hl std">(</span><span class="hl num">50000</span><span class="hl std">)</span>
+
+
+<span class="hl com">#=========================================================================</span>
+
+<span class="hl com">#3</span>
+<span class="hl com">#a</span>
+
+<span class="hl std">w</span> <span class="hl kwb">=</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl opt">-</span><span class="hl num">10</span><span class="hl std">,</span> <span class="hl opt">-</span><span class="hl num">10</span><span class="hl std">,</span> <span class="hl opt">-</span><span class="hl num">10</span><span class="hl std">,</span> <span class="hl num">0</span><span class="hl std">,</span> <span class="hl num">0</span><span class="hl std">,</span> <span class="hl num">14</span><span class="hl std">)</span>
+<span class="hl std">winnings</span> <span class="hl kwb">=</span> <span class="hl kwd">sample</span> <span class="hl std">(w,</span> <span class="hl num">1000</span><span class="hl std">,</span> <span class="hl kwc">replace</span> <span class="hl std">=</span> <span class="hl num">TRUE</span><span class="hl std">)</span>  <span class="hl com">#Result of 1000 trials saved into winnings</span>
+<span class="hl kwd">table</span> <span class="hl std">(winnings)</span> <span class="hl com">#Displays total count for -10, 0, and 14</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## winnings
+## -10   0  14 
+## 491 354 155
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl kwd">table</span> <span class="hl std">(winnings)</span><span class="hl opt">/</span><span class="hl num">1000</span> <span class="hl com">#Displays the probability distrubtion function</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## winnings
+##   -10     0    14 
+## 0.491 0.354 0.155
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">winProp</span> <span class="hl kwb">=</span> <span class="hl kwd">table</span><span class="hl std">(winnings)</span><span class="hl opt">/</span><span class="hl num">1000</span>
+<span class="hl kwd">cumsum</span><span class="hl std">(winProp)</span> <span class="hl com">#Displays the cumulative distrubtion function (CDF)</span>
+</pre></div>
+<div class="output"><pre class="knitr r">##   -10     0    14 
+## 0.491 0.845 1.000
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl kwd">mean</span><span class="hl std">(winnings)</span>  <span class="hl com">#Displays the mean</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## [1] -2.74
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl kwd">sd</span><span class="hl std">(winnings)</span>    <span class="hl com">#Displays the standard deviation</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## [1] 8.4879
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl kwd">var</span><span class="hl std">(winnings)</span>   <span class="hl com">#Displays the variance</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## [1] 72.04444
+</pre></div>
+</div></div>
+
+  <p>The R session information (including the OS info, R version and all
+    packages used):</p>
+
+<div class="chunk" id="session-info"><div class="rcode"><div class="source"><pre class="knitr r">    <span class="hl kwd">sessionInfo</span><span class="hl std">()</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## R version 3.5.2 (2018-12-20)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Mojave 10.14.3
+## 
+## Matrix products: default
+## BLAS: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] knitr_1.22
+## 
+## loaded via a namespace (and not attached):
+## [1] compiler_3.5.2 magrittr_1.5   tools_3.5.2    stringi_1.4.3  highr_0.7     
+## [6] stringr_1.4.0  xfun_0.5       evaluate_0.13
+</pre></div>
+<div class="source"><pre class="knitr r">    <span class="hl kwd">Sys.time</span><span class="hl std">()</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## [1] &quot;2019-04-06 12:01:13 PDT&quot;
+</pre></div>
+</div></div>
+
+
+</body>
+</html>
