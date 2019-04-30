@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+.inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.str {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.std {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+  <script src="https://yihui.name/media/js/center-images.js"></script>
+  <title></title>
+</head>
+<body>
+
+  <p>This report is automatically generated with the R
+    package <a href="https://yihui.name/knitr/"><strong>knitr</strong></a>
+    (version <code class="knitr inline">1.22</code>)
+    .</p>
+
+<div class="chunk" id="auto-report"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl com">#R Code for Lab 3</span>
+<span class="hl com">#Jan Domingo</span>
+
+
+<span class="hl com">#1A: Generate 10,000 variates using the random number generator</span>
+<span class="hl com">#Generate random variates according to the RANDU generator</span>
+<span class="hl com">#X_(n+1) = 16807 X_n mod 2^31; a = 16807, c = 0, m = 2^31-1</span>
+<span class="hl std">n</span> <span class="hl kwb">=</span> <span class="hl num">10000</span> <span class="hl com">#number of variates</span>
+<span class="hl std">x</span> <span class="hl kwb">=</span> <span class="hl num">1</span> <span class="hl com">#seed</span>
+<span class="hl kwa">for</span> <span class="hl std">(i</span> <span class="hl kwa">in</span> <span class="hl num">1</span><span class="hl opt">:</span><span class="hl std">n) {</span>
+  <span class="hl std">x</span> <span class="hl kwb">=</span> <span class="hl kwd">c</span><span class="hl std">(x, (</span><span class="hl num">16807</span><span class="hl opt">*</span><span class="hl std">x[i])</span><span class="hl opt">%%</span><span class="hl std">(</span><span class="hl num">2</span><span class="hl opt">^</span><span class="hl num">31</span><span class="hl opt">-</span><span class="hl num">1</span><span class="hl std">))</span> <span class="hl com">#modulus</span>
+<span class="hl std">}</span>
+<span class="hl std">x</span> <span class="hl kwb">=</span> <span class="hl std">x[</span><span class="hl num">2</span><span class="hl opt">:</span><span class="hl std">(n</span><span class="hl opt">+</span><span class="hl num">1</span><span class="hl std">)]</span> <span class="hl com">#Disregards seed value, keeps the other 10000 from for loop</span>
+<span class="hl std">u</span> <span class="hl kwb">=</span> <span class="hl std">x</span><span class="hl opt">/</span><span class="hl std">(</span><span class="hl num">2</span><span class="hl opt">^</span><span class="hl num">31</span><span class="hl opt">-</span><span class="hl num">1</span><span class="hl std">)</span>  <span class="hl com">#Transforming uniform variates between 0 and 1</span>
+
+
+<span class="hl com">#1B: Draw a historgram of these variates</span>
+<span class="hl kwd">par</span><span class="hl std">(</span><span class="hl kwc">mfrow</span> <span class="hl std">=</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">2</span><span class="hl std">,</span><span class="hl num">1</span><span class="hl std">))</span> <span class="hl com">#2 rows, 1 column for the graph matrix</span>
+<span class="hl kwd">hist</span><span class="hl std">(u,</span> <span class="hl kwc">main</span><span class="hl std">=</span><span class="hl str">&quot;&quot;</span><span class="hl std">,</span> <span class="hl kwc">xlab</span> <span class="hl std">=</span> <span class="hl str">&quot;RANDU variates&quot;</span><span class="hl std">,</span> <span class="hl kwc">ylab</span> <span class="hl std">=</span> <span class="hl str">&quot;Frequencies&quot;</span><span class="hl std">)</span> <span class="hl com"># histogram of the n RANDU variates</span>
+
+
+<span class="hl com">#1C: Draw the empirical cumulative distribution function against the CDF</span>
+<span class="hl kwd">plot.ecdf</span><span class="hl std">(u,</span> <span class="hl kwc">verticals</span> <span class="hl std">=</span> <span class="hl num">TRUE</span><span class="hl std">,</span> <span class="hl kwc">do.p</span> <span class="hl std">=</span> <span class="hl num">FALSE</span><span class="hl std">,</span> <span class="hl kwc">main</span><span class="hl std">=</span><span class="hl str">&quot;&quot;</span><span class="hl std">,</span> <span class="hl kwc">ylab</span> <span class="hl std">=</span> <span class="hl str">&quot;Probability&quot;</span><span class="hl std">)</span>
+<span class="hl kwd">abline</span><span class="hl std">(</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">1</span><span class="hl std">,</span> <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl str">&quot;red&quot;</span><span class="hl std">)</span>
+</pre></div>
+</div><div class="rimage center"><img src="figure/lab3code-Rhtmlauto-report-1.png" title="plot of chunk auto-report" alt="plot of chunk auto-report" class="plot" /></div><div class="rcode">
+<div class="source"><pre class="knitr r"><span class="hl com">#1D: Kolmogorov-Smirnov Test of RANDU variates against U(0, 1) distribution</span>
+<span class="hl kwd">ks.test</span><span class="hl std">(u,</span> <span class="hl str">&quot;punif&quot;</span><span class="hl std">,</span> <span class="hl num">0</span><span class="hl std">,</span> <span class="hl num">1</span><span class="hl std">)</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## 
+## 	One-sample Kolmogorov-Smirnov test
+## 
+## data:  u
+## D = 0.0070995, p-value = 0.6946
+## alternative hypothesis: two-sided
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com">#2B:Calculates the EPMF and the ECDF </span>
+<span class="hl std">n</span> <span class="hl kwb">=</span> <span class="hl num">1000</span>
+<span class="hl std">x</span> <span class="hl kwb">=</span> <span class="hl num">0</span> <span class="hl com">#initial vector)</span>
+<span class="hl std">bpmf</span> <span class="hl kwb">=</span> <span class="hl kwd">rep</span><span class="hl std">(</span><span class="hl num">0.20</span><span class="hl std">,</span> <span class="hl num">5</span><span class="hl std">)</span> <span class="hl com">#True PMF</span>
+<span class="hl std">bcdf</span> <span class="hl kwb">=</span> <span class="hl kwd">cumsum</span><span class="hl std">(bpmf)</span> <span class="hl com">#True CDF</span>
+<span class="hl std">uniLine</span> <span class="hl kwb">=</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">0</span><span class="hl std">,bcdf)</span> <span class="hl com">#Uniform line from 0-1 broken into 4 intervals</span>
+<span class="hl std">xval</span> <span class="hl kwb">=</span> <span class="hl num">1</span><span class="hl opt">:</span><span class="hl num">5</span> <span class="hl com">#1 = S, 2 = L, 3 = U, 4 = R, 5 = M</span>
+<span class="hl kwa">for</span> <span class="hl std">(i</span> <span class="hl kwa">in</span> <span class="hl num">1</span><span class="hl opt">:</span><span class="hl std">n) {</span>
+  <span class="hl std">u</span> <span class="hl kwb">=</span> <span class="hl kwd">runif</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl std">)</span>  <span class="hl com">#Sample a random variate from U(0,1). The inverse transofrmation method</span>
+  <span class="hl std">x[i]</span> <span class="hl kwb">=</span> <span class="hl kwd">sum</span><span class="hl std">(u</span> <span class="hl opt">&gt;</span> <span class="hl std">uniLine)</span> <span class="hl com">#Random variate between 1 and 5 (letter on bottle cap) </span>
+<span class="hl std">}</span>
+<span class="hl std">epmf</span> <span class="hl kwb">=</span> <span class="hl kwd">table</span><span class="hl std">(x)</span><span class="hl opt">/</span><span class="hl std">n</span> <span class="hl com">#Emprical PMF</span>
+<span class="hl std">ecdf</span> <span class="hl kwb">=</span> <span class="hl kwd">cumsum</span><span class="hl std">(epmf)</span> <span class="hl com">#Empirical CDF</span>
+
+
+<span class="hl com">#2C: Present a histogram of your variates</span>
+<span class="hl kwd">hist</span><span class="hl std">(x,</span> <span class="hl kwc">xlab</span><span class="hl std">=</span><span class="hl str">&quot;Bottle Cap Letter&quot;</span><span class="hl std">,</span> <span class="hl kwc">ylab</span><span class="hl std">=</span><span class="hl str">&quot;Frequencies&quot;</span><span class="hl std">,</span> <span class="hl kwc">breaks</span><span class="hl std">=</span><span class="hl kwd">seq</span><span class="hl std">(</span><span class="hl kwd">min</span><span class="hl std">(x)</span><span class="hl opt">-</span><span class="hl num">0.5</span><span class="hl std">,</span> <span class="hl kwd">max</span><span class="hl std">(x)</span><span class="hl opt">+</span><span class="hl num">0.5</span><span class="hl std">))</span>
+
+
+<span class="hl com">#2D: Present a plot of the emprical cdf versues the true cdf</span>
+<span class="hl kwd">plot</span><span class="hl std">(xval, bcdf,</span> <span class="hl kwc">xlab</span><span class="hl std">=</span><span class="hl str">&quot;Letter&quot;</span><span class="hl std">,</span> <span class="hl kwc">yLab</span><span class="hl std">=</span><span class="hl str">&quot;CDF&quot;</span><span class="hl std">,</span> <span class="hl kwc">main</span><span class="hl std">=</span><span class="hl str">&quot;ECDF vs True CDF&quot;</span><span class="hl std">,</span> <span class="hl kwc">pch</span><span class="hl std">=</span><span class="hl num">19</span><span class="hl std">)</span>
+</pre></div>
+<div class="warning"><pre class="knitr r">## Warning in plot.window(...): &quot;yLab&quot; is not a graphical parameter
+</pre></div>
+<div class="warning"><pre class="knitr r">## Warning in plot.xy(xy, type, ...): &quot;yLab&quot; is not a graphical parameter
+</pre></div>
+<div class="warning"><pre class="knitr r">## Warning in axis(side = side, at = at, labels = labels, ...): &quot;yLab&quot; is not a graphical
+## parameter
+
+## Warning in axis(side = side, at = at, labels = labels, ...): &quot;yLab&quot; is not a graphical
+## parameter
+</pre></div>
+<div class="warning"><pre class="knitr r">## Warning in box(...): &quot;yLab&quot; is not a graphical parameter
+</pre></div>
+<div class="warning"><pre class="knitr r">## Warning in title(...): &quot;yLab&quot; is not a graphical parameter
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl kwd">points</span><span class="hl std">(xval, ecdf,</span> <span class="hl kwc">pch</span><span class="hl std">=</span><span class="hl num">8</span><span class="hl std">,</span> <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl str">&quot;red&quot;</span><span class="hl std">)</span>
+</pre></div>
+</div><div class="rimage center"><img src="figure/lab3code-Rhtmlauto-report-2.png" title="plot of chunk auto-report" alt="plot of chunk auto-report" class="plot" /></div></div>
+
+  <p>The R session information (including the OS info, R version and all
+    packages used):</p>
+
+<div class="chunk" id="session-info"><div class="rcode"><div class="source"><pre class="knitr r">    <span class="hl kwd">sessionInfo</span><span class="hl std">()</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## R version 3.5.2 (2018-12-20)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Mojave 10.14.3
+## 
+## Matrix products: default
+## BLAS: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] knitr_1.22
+## 
+## loaded via a namespace (and not attached):
+## [1] compiler_3.5.2 magrittr_1.5   tools_3.5.2    stringi_1.4.3  highr_0.7     
+## [6] stringr_1.4.0  xfun_0.5       evaluate_0.13
+</pre></div>
+<div class="source"><pre class="knitr r">    <span class="hl kwd">Sys.time</span><span class="hl std">()</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## [1] &quot;2019-04-30 15:06:33 PDT&quot;
+</pre></div>
+</div></div>
+
+
+</body>
+</html>

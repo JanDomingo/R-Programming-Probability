@@ -16,11 +16,11 @@ u = x/(2^31-1)  #Transforming uniform variates between 0 and 1
 
 #1B: Draw a historgram of these variates
 par(mfrow = c(2,1)) #2 rows, 1 column for the graph matrix
-hist(u, main="", xlab = "RANDU variates", ylab = "Frequencies") # histogram of the n RANDU variates
+hist(u, main="", xlab="RANDU variates", ylab="Frequencies") # histogram of the n RANDU variates
 
 
 #1C: Draw the empirical cumulative distribution function against the CDF
-plot.ecdf(u, verticals = TRUE, do.p = FALSE, main="", ylab = "Probability")
+plot.ecdf(u, verticals=TRUE, do.p = FALSE, main="", ylab="Probability")
 abline(0,1, col="red")
 
 

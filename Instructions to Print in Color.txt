@@ -1,0 +1,9 @@
+In R studio and in the console type this in:
+
+library(knitr) 
+
+stitch("file_name.R")
+
+stitch(script="file_name.R", system.file("misc", "knitr-template.Rhtml", package="knitr"))
+
+Then copy and paste into word as RTF
