@@ -1,3 +1,7 @@
+#Jan Domingo
+#Homework #8 Appendix: R Programs
+#4, 6, and 7
+
 #4  Babies' birth weights are normally distributed with mean 120 ounces and standard deviation 20 ounces. 
 #   Low birth weight is an important indicator of a newborn baby's chances of survivlal.
 #   One definition of low birth weight is that it is the fifth percentile of the weight distribution.
@@ -25,7 +29,7 @@ pnorm(52, 120, 20, lower.tail = TRUE) # = .0034
 0.05 * gamma(1/0.25 + 1) # = 1.2
 
 #Var(t): alpha^2 * gamma(2/beta + 1) - alpha^2 * gamma(1/beta + 1)^2
-0.05^2 * gamma(2/0.25 + 1) - 0.05^2 * gamma(1/0.25 + 1)^2 # = 99.36
+0.05^2 * gamma(2/0.25 + 1) - 0.05^2 * (gamma(1/0.25 + 1))^2 # = 99.36
 
 #Probability the CPU softare will take longer than 1 second to execute
 1 - pweibull(1, 0.25, 0.05) # = 0.1206644
@@ -40,4 +44,13 @@ pnorm(52, 120, 20, lower.tail = TRUE) # = .0034
 #   alpha = 11.08, beta = 3.7
 
 # Computing the mean:(alpha/beta) * gamma(1/alpha)
-(11.08/3.7) * gamma(1/11.08) # = 
+(11.08/3.7) * gamma(1/11.08) # = 31.69874
+
+
+#Range of Distances for middle 50% of distribution:
+
+#At 75%
+qweibull(0.75, 11.08, 3.7, lower.tail = TRUE) # = 3.810698
+
+#At 25%
+qweibull(0.25, 11.08, 3.7, lower.tail = TRUE) # = 3.306489
