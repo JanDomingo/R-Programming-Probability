@@ -1,0 +1,3 @@
+library (knitr)
+stitch("homework8.R")
+stitch(script="file_name.R", system.file("misc", "knitr-template.Rhtml", package="knitr"))

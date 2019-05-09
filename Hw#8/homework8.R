@@ -50,7 +50,7 @@ pnorm(52, 120, 20, lower.tail = TRUE) # = .0034
 #Range of Distances for middle 50% of distribution:
 
 #At 75%
-qweibull(0.75, 11.08, 3.7, lower.tail = TRUE) # = 3.810698
+qweibull(0.75, 3.7, 11.08, lower.tail = TRUE) # = 12.10261
 
 #At 25%
-qweibull(0.25, 11.08, 3.7, lower.tail = TRUE) # = 3.306489
+qweibull(0.25, 3.7, 11.08, lower.tail = TRUE) # = 7.91225
