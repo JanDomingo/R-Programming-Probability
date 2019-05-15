@@ -73,4 +73,44 @@ var(gamestreak)
 
 #-------------------------------------------------------------------------------------------------------------
 
+#4
+
+x1_v = vector()
+x2_v = vector()
+n = 1000
+x_vals = vector()
+m = 2 #mean
+v = 2 #variance
+s = sqrt(v) #standard deviation
+
+#The following i, ii, and iii are the steps for the Box-Muller Method
+#i Generates two uniform variates
+for (i in 1:n) {
+  u1 = runif(1)
+  u2 = runif(2)
+
+#ii Convert Variates to z scores
+z1 = sqrt(-2*log(u1))*cos(2*pi*u2)
+z2 = sqrt(-2*log(u1))*sin(2*pi*u2) 
+
+#iii Inverse normal transformation to x variates
+x1 = s * z1 + m
+x2 = s * z2 + m
+
+x1_v = c(x1_v, x1)
+x2_v = c(x2_v, x2)
+}
+
+x_vals = c(x1_v, x2_v)
+
+#(a) The mean, variance, and median of the combined variates of x1_v and x2_v
+mean(x_vals)
+var(x_vals)
+median(x_vals)
+
+#(b) Histogram of these combined variates and an overly with the true density
+hist(x_vals, freq = FALSE, xlab="Normal Variates", ylim=c(0,0.30))	#Creates histogram with density values
+lines((x, y, col = "red"))
+lines(x,y,col = "red") #Overlay the true density curve over the graph
+
 
