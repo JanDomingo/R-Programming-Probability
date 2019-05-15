@@ -1,3 +1,4 @@
+#APPENDIX
 # Jan Domingo
 # May 16, 2019
 #Final: Lab Take-home
@@ -73,6 +74,32 @@ var(gamestreak)
 
 #-------------------------------------------------------------------------------------------------------------
 
+#3
+n = 10000 #number of variates
+x = 1     #seed value
+
+for (i in 1:n) {
+  x = c(x, ((20000*x[i])%%(2^29-1))) #Linear Congruential Method except with custom a(20000), b(0), and m(2^29) values
+}
+
+x = x[2:(n+1)]  #Disregards seed value, keeps the other 10000 from for loop
+x
+
+u = x/(2^29-1)  #Transfrom uniform variates between 0 and 1
+
+#(a) Plot a histogram of your variates
+par(mfrow = c(2,1)) #2 rows, 1 column for the graph matrix
+hist(u, main ="", xlab="RANDU variiates", ylab="Frequencies") #Histogram of the n RANDU variates
+
+
+#(b) Draw the empirical CDF of oyur variates against the true CDF of a uniform distribution
+plot.ecdf(u, verticals = TRUE, do.p = FALSE, xlab = "u", ylab = "ECDF")
+abline(0,1, col="red")
+
+#(c)
+ks.test(u, "punif", 0, 1) #Komolgorov-smirnov test of RANDU variates against U(0,1)
+#-------------------------------------------------------------------------------------------------------------
+
 #4
 
 x1_v = vector()
@@ -109,8 +136,16 @@ var(x_vals)
 median(x_vals)
 
 #(b) Histogram of these combined variates and an overly with the true density
+x <- seq(-4, 8, by=0.001) #Generate a sequence of numbers from -4 to 8
+y <- dnorm(x, m, s) #Normalize the values with mean=2 and pop sd=sqrt(2)
 hist(x_vals, freq = FALSE, xlab="Normal Variates", ylim=c(0,0.30))	#Creates histogram with density values
-lines((x, y, col = "red"))
 lines(x,y,col = "red") #Overlay the true density curve over the graph
 
+#(c) Calculating the empirical rule probabilities
+i = 1
+length(x_vals[(m-i*s) <= x_vals & x_vals <= (m+i*s)]) / length(x_vals)
+i = 2
+length(x_vals[(m-i*s) <= x_vals & x_vals <= (m+i*s)]) / length(x_vals)
+i = 3
+length(x_vals[(m-i*s) <= x_vals & x_vals <= (m+i*s)]) / length(x_vals)
 
