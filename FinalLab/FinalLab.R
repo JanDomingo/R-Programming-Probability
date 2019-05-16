@@ -54,7 +54,7 @@ for (i in 1:n) {
   while (lose <= 10) #This line is different from #1a. Only stops simulation when lose reaches 10
   {
     u = runif(1)  #Generates a random number between 0 and 1
-    if (u < p)    #If the random number is less than the proabability of winning
+    if (u < p)    #If the random number is less than the probability of winning
       lose = lose + 1 #Then increase the lose count
     streak = streak + 1
     if (streak > longestStreak)
@@ -81,13 +81,13 @@ n = 10000 #number of variates
 x = 1     #seed value
 
 for (i in 1:n) {
-  x = c(x, ((31425*x[i])+100)%%(2^29)) #Linear Congruential Method except with custom a(31425), b(100), and m(2^29) values
+  x = c(x, ((31425*x[i])+100)%%(2^29)) #Linear Congruential Method with custom a(31425), b(100), and m(2^29) values
 }
 
 x = x[2:(n+1)]  #Disregards seed value, keeps the other 10000 from for loop
 x
 
-u = x/(2^29)  #Transfrom uniform variates between 0 and 1
+u = x/(2^29)  #Transform uniform variates between 0 and 1
 
 #(a) Plot a histogram of your variates
 par(mfrow = c(2,1)) #2 rows, 1 column for the graph matrix
